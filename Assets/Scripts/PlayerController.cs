@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private bool isOnGround = true;
     private bool gameIsOver;
 
+    public bool GameIsOver => gameIsOver;
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
