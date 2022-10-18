@@ -8,18 +8,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float gravityModifier = 1.5f;
     private Rigidbody playerRb;
+    private bool isOnGround = true;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        Physics.gravity *= gravityModifier;
+        Physics.gravity *= gravityModifier
+            ;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        isOnGround = true;
     }
 }
