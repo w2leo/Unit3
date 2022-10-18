@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravityModifier = 1.5f;
     private Rigidbody playerRb;
     private bool isOnGround = true;
+    private bool gameIsOver;
 
     void Start()
     {
@@ -28,6 +29,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isOnGround = true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Game Over");
+            gameIsOver = true;
+        }
     }
 }
