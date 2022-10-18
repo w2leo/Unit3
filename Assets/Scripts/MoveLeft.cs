@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f;
+    private float moveSpeed = 15f;
 
     void Update()
     {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);        
+        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
     }
 }
