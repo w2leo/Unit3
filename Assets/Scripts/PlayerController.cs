@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    private const string DIST_TEXT = "Distance = ";
+
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float gravityModifier = 1.5f;
     [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private ParticleSystem dirtParticle;
     [SerializeField] private AudioClip jumpClip;
     [SerializeField] private AudioClip crashClip;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private Text distanceText;
     private AudioSource playerAudio;
     private Rigidbody playerRb;
     private Animator playerAnim;
@@ -37,6 +42,8 @@ public class PlayerController : MonoBehaviour
             dirtParticle.Stop();
             playerAudio.PlayOneShot(jumpClip, 1.0f);
         }
+
+       // distanceText.text = DIST_TEXT + (int)transform.position.x;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,6 +62,12 @@ public class PlayerController : MonoBehaviour
             gameIsOver = true;
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
+            Invoke("GameOverPanelShow", 1.0f);
         }
+    }
+
+    private void GameOverPanelShow()
+    {
+        gameOverPanel.SetActive(true);
     }
 }
